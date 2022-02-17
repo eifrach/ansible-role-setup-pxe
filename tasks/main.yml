@@ -1,0 +1,9 @@
+
+- name: Install services
+  include_tasks: install.yml
+  tags: install
+
+- name: install DHCP service
+  include_tasks: dhcp.yml
+  tags: dhcp
+  when: DHCP is defined 
