@@ -35,7 +35,7 @@ next create a playbook and vars to your needs:
   roles:
     - setup-pxe
   vars:
-    IPXE: true
+    TFTP_DIR: "/home/user/tftpboot"
 ```
 finally run the playbook
 ```shell
