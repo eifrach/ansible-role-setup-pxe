@@ -10,15 +10,15 @@ allow booting;
 allow bootp;
 
 
-subnet {{ DHCP_SUBNET }} netmask {{ DHCP_NETMASK }} {
-    option routers {{ DHCP_ROUTER }};
-    option ntp-servers {{ DHCP_NTP }};
-    option domain-name-servers {{ DHCP_DNS }};
-    range {{ DHCP_RANGE }};
+subnet {{ DHCP.SUBNET }} netmask {{ DHCP.NETMASK }} {
+    option routers {{ DHCP.GATEWAY }};
+    option ntp-servers {{ DHCP.NTP }};
+    option domain-name-servers {{ DHCP.DNS }};
+    range {{ DHCP.RANGE }};
 
     class "pxeclients" {
       match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
-      next-server {{ DHCP_ROUTER }};
+      next-server {{ DHCP.GATEWAY }};
       always-broadcast on;
     {% if ARCH == "arm" %}
       filename "/BOOTAA64.EFI";

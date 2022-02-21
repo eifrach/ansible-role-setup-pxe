@@ -5,7 +5,6 @@
       - jq
       - ipmitool
       - httpd
-      - tftp-server
     state: present
   become: yes
 
@@ -16,6 +15,14 @@
     owner: apache
     group: apache
   become: yes
+
+- name: setup iPXE config
+  template:
+    src: ipxe.j2
+    dest: "{{ HTTP_DIR }}/ipxe"
+  become: yes
+  when: IPXE is true
+
 
 - name: Create HTTP PXE config file
   template:
@@ -29,33 +36,5 @@
   service:
     name: httpd
     state: reloaded
-    enabled: yes
-  become: yes
-
-- name: Create TFTP Directory
-  file:
-    path: "{{ TFTP_DIR }}"
-    state: directory
-    owner: root
-    group: root
-  become: yes
-
-- name: Creating Grub Config
-  template:
-    src: grub.cfg.j2
-    dest: "{{ TFTP_DIR }}/grub.cfg"
-  become: yes
-
-- name: Configure TFTP service
-  template:
-    src:  tftp.service.j2
-    dest: /usr/lib/systemd/system/tftp.service
-  become: yes
-
-- name: Start TFTP Server
-  service:
-    name: tftp
-    daemon_reload: yes
-    state: started
     enabled: yes
   become: yes
