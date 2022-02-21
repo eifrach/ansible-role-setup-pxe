@@ -11,6 +11,7 @@ IPXE: false
 HTTP_DIR: "/var/www/html/pxe"
 
 ### ARCH
+# available option arm, x86
 ARCH: "arm"
 
 ### DHCP Configuration 
