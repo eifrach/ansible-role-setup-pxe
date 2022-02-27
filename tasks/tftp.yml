@@ -16,13 +16,6 @@
   become: yes
   tags: install, tftp
 
-- name: Creating Grub Config
-  template:
-    src: grub.cfg.j2
-    dest: "{{ TFTP_DIR }}/grub.cfg"
-  become: yes
-  tags: install, tftp
-
 - name: Configure TFTP service
   template:
     src:  tftp.service.j2
